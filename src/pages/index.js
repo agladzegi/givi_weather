@@ -1,21 +1,75 @@
 import React from "react"
-import { Link } from "gatsby"
+import axios from 'axios'
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+class IndexPage extends React.Component {
+
+  state = {
+    featured: {},
+    error: ''
+  }
+
+  componentDidMount() {
+    this.getInitialWeather()
+  }
+
+  getInitialWeather = async () => {
+    try {
+      const response = await axios.get(`${process.env.GATSBY_API_URL}/weather?id=611717&appid=${process.env.GATSBY_API_KEY}&units=metric`)
+      this.setState({ featured: response.data })
+      console.log(this.state.featured)
+    } catch(err) {
+      this.setState({ featured: {}, error: 'Ooops, Something went wrong, try again...' })
+    }
+  }
+
+  onClick = (e) => {
+    this.getWeather(e)
+  } 
+
+  getWeather = async (e) => {
+    try {
+      const response = await axios.get(`${process.env.GATSBY_API_URL}/weather?id=${e.target.value}&appid=${process.env.GATSBY_API_KEY}&units=metric`)
+      this.setState({ featured: response.data })
+      console.log(this.state.featured)
+    } catch(err) {
+      this.setState({ featured: {}, error: 'Ooops, Something went wrong, try again...' })
+    }
+  }
+  
+  render() {
+    const { featured, error } = this.state
+    return (
+      <Layout>
+        <SEO title="Givi Weather" />
+        { error || !featured.name ? <h3>{error}</h3> : <div className="featured">
+          <div className="weather">
+            <h1>{featured.name}</h1>
+            <h3>{featured.weather[0].description}</h3>
+            <ul>
+              <li>Max-temp: <span>{featured.main.temp_max}&deg;</span></li>
+              <li>Pressure: <span>{featured.main.pressure}</span></li>
+              <li>Humidity: <span>{featured.main.humidity}%</span></li>
+              <li>Wind: <span>{featured.wind.speed}km/h</span></li>
+            </ul>
+          </div>
+          <div className="temp">
+            <h1>{featured.main.temp}&deg;</h1>
+          </div>
+        </div> }
+        <div className="main">
+          <button value="611717" onClick={this.onClick}>Tbilisi</button>
+          <button value="615532" onClick={this.onClick}>Batumi</button>
+          <button value="613607" onClick={this.onClick}>Kutaisi</button>
+          <button value="612287" onClick={this.onClick}>Rustavi</button>
+          <button value="610864" onClick={this.onClick}>Zestaponi</button>
+          <button value="611694" onClick={this.onClick}>Telavi</button>
+        </div>
+      </Layout>
+    )
+  }
+}
 
 export default IndexPage

@@ -1,10 +1,11 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "givi-weather",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Simple but cool PWA weather app created by Giorgi Agladze",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Giorgi Agladze",
   "dependencies": {
+    "axios": "^0.19.0",
     "gatsby": "^2.13.73",
     "gatsby-image": "^2.2.10",
     "gatsby-plugin-manifest": "^2.2.6",
