@@ -44,7 +44,7 @@ class IndexPage extends React.Component {
     return (
       <Layout>
         <SEO title="Givi Weather" />
-        { error || !featured.name ? <h3>{error}</h3> : <div className="featured">
+        { error || !featured.name ? <h3 style={{ textAlign: 'center', margin: '2rem auto' }}>{error}</h3> : <div className="featured">
           <div className="weather">
             <h1>{featured.name}</h1>
             <h3>{featured.weather[0].description}</h3>
