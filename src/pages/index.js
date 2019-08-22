@@ -19,7 +19,6 @@ class IndexPage extends React.Component {
     try {
       const response = await axios.get(`${process.env.GATSBY_API_URL}/weather?id=611717&appid=${process.env.GATSBY_API_KEY}&units=metric`)
       this.setState({ featured: response.data })
-      console.log(this.state.featured)
     } catch(err) {
       this.setState({ featured: {}, error: 'Ooops, Something went wrong, try again...' })
     }
@@ -33,7 +32,6 @@ class IndexPage extends React.Component {
     try {
       const response = await axios.get(`${process.env.GATSBY_API_URL}/weather?id=${e.target.value}&appid=${process.env.GATSBY_API_KEY}&units=metric`)
       this.setState({ featured: response.data })
-      console.log(this.state.featured)
     } catch(err) {
       this.setState({ featured: {}, error: 'Ooops, Something went wrong, try again...' })
     }
