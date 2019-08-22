@@ -1,8 +1,6 @@
 import React from "react"
-import { navigate } from 'gatsby'
+import { navigate } from "gatsby"
 
-const NotFoundPage = () => {
-    return navigate('/')
-}
+const NotFoundPage = () => navigate('/')
 
 export default NotFoundPage
